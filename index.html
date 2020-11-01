@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Quiz</title>
+    <link rel = "stylesheet" href = "./reset.css">
+    <link rel = "stylesheet" href="./style.css">
+</head>
+<body>
+    <header>
+        <a id = "high_score_link" href="#">View Highscore</a>
+        <span id = "time">Time:</span>     
+    </header>
+    <main>
+        <div class = "initial_page">
+            <section id = "presentation">
+                <h1>WELCOME TO THE CODING QUIZ</h1>
+
+                <p>In this app you will be able to test your coding knowledge by selecting the right answer. Any time you answer correctly, one point will be added to you score. If you answer wrong, time will be sustracted giving you less time to answer the rest of the questions.
+                </p>
+                <button id = "start_button">Start</button>
+            </section>
+        </div>
+
+        <section id = "question_section" class="hidden">
+            <h2 id ="question_rendered"></h2>
+            <button id = "btn_1">1</button>
+            <button id = "btn_2">2</button>
+            <button id = "btn_3">3</button>
+            <button id = "btn_4">4</button>
+            <div id = "feedback" class="hidden">
+                <p>""</p>
+            </div>
+        </section>
+        
+        <section id = ending_page class="hidden">
+            <h2>You are all done!</h2>
+            <p>Your final score is<span id = "score"></span></p>
+            <div id = "user_info">
+                <p>enter your initials:</p><input id = "user_initials" type = "text">
+                <button id = "submit_button">Submit</button>
+            </div>
+        <section id = "highscore_page" class = "hidden">
+            <h1>Highgscores</h1>
+            <div id = "highscores"></div>
+            <button id = "initial_page_btn">Go Back</button>
+            <button id = "clear_highscores_btn">Clear Highscores</button>
+        </section>
+    </main>
+
+    <script src= "./script.js"></script>
+</body>
+</html>
