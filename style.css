@@ -2,4 +2,48 @@ header {
     display:inline-flex;
     justify-content: space-between;
     width:100%;
+    background-color:#0099cc;
+    color:white;
+    padding:30px;
+    margin-bottom: 40px;
+}
+a{
+    color:white;
+}
+
+main{
+    margin:auto;
+}
+.initial_page{
+    text-align: center;
+    padding-left: 100px;
+    padding-right:100px;
+}
+
+#start_button{
+    background-color: #0099cc;
+    margin-top:30px;
+}
+
+#ending_page{
+    margin-top:30px;
+    text-align: center;
+    padding:20px;
+}
+
+#highscore_page{
+    margin-top:30px;
+    text-align: center;
+    padding:20px;
+}
+.hidden{
+    display:none;
+}
+#question_selection{
+    margin-top:30px;
+    text-align: center;
+    padding:20px;
+}
+.hidden_Q{
+    display:none;
 }

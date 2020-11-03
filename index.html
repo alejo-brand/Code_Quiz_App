@@ -10,20 +10,22 @@
 <body>
     <header>
         <a id = "high_score_link" href="#">View Highscore</a>
-        <span id = "time">Time:</span>     
+        <span id = "time">Time:<span id = "clock">0</span></span>     
     </header>
     <main>
         <div class = "initial_page">
             <section id = "presentation">
-                <h1>WELCOME TO THE CODING QUIZ</h1>
+                <h1>WELCOME TO THE VIDEOGAME QUIZ</h1>
 
-                <p>In this app you will be able to test your coding knowledge by selecting the right answer. Any time you answer correctly, one point will be added to you score. If you answer wrong, time will be sustracted giving you less time to answer the rest of the questions.
+                <p>In this app you will be able to test your videogame knowledge by selecting the right answer. Any time you answer correctly, one point will be added to you score. If you answer wrong, time will be sustracted giving you less time to answer the rest of the questions.
                 </p>
-                <button id = "start_button">Start</button>
+                <button id = "start_button">START
+                    <!-- <a href="./quiz.html">Start</a> -->
+                    </button>
             </section>
         </div>
 
-        <section id = "question_section" class="hidden">
+        <section id = "question_section" class="hidden_Q">
             <h2 id ="question_rendered"></h2>
             <button id = "btn_1">1</button>
             <button id = "btn_2">2</button>
