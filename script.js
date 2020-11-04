@@ -5,29 +5,31 @@ var initialPageBtn = document.getElementById("initial_page_btn");
 var clearScores = document.getElementById("clear_highscores_btn");
 var timeEl = document.getElementById("clock");
 var questionEl = document.getElementById("question_rendered");
+var quizPage = document.getElementById("question_section");
+var ansLi = document.getElementById("answers_list");
 
 
 //list of questions to loop through
 var questions = [
     {
-        question1: "in Street fighter (videogame) which is the nationality of the character named Ryu?",
-        answers1: ["Brazil", "Japan", "USA", "Thailand"],
+        question: "in Street fighter (videogame) which is the nationality of the character named Ryu?",
+        answers: ["Brazil", "Japan", "USA", "Thailand"],
         correctIndex: 1
     },{
-        question2: "In Super Mario Bros released in 1983, What is the name of the main villain?",
-        answers2:["luigi","Koopa Troopa","Toad","bowser"],
+        question: "In Super Mario Bros released in 1983, What is the name of the main villain?",
+        answers:["luigi","Koopa Troopa","Toad","bowser"],
         correctIndex:3
     },{
-        question3:"In the videogame Super Mario Kart, what is the name of the very last race track?",
-        answers3:["I5","luigi raceway","Rainbow road"],
+        question:"In the videogame Super Mario Kart, what is the name of the very last race track?",
+        answers:["I5","luigi raceway","Rainbow road"],
         correctIndex:3
     },{
-        question4:"In Street fighter II, what is the name of the final boss?",
-        answers4:["Akuma","Blanca","Bison","Guile"],
+        question:"In Street fighter II, what is the name of the final boss?",
+        answers:["Akuma","Blanca","Bison","Guile"],
         correctIndex:2
     },{
-        question5:"what is the name of the composer of Super Mario Bross soundtrakcs?",
-        answers5:["Koji Kondo","Shigeru Miyamoto","Alex D","John Smith"],
+        question:"what is the name of the composer of Super Mario Bross soundtrakcs?",
+        answers:["Koji Kondo","Shigeru Miyamoto","Alex D","John Smith"],
         correctIndex:0
     }
 
@@ -35,6 +37,8 @@ var questions = [
 console.log(questions);
 
 var initialTime = 120;
+var questionIndex = 0;
+var score = 0;
 
 
 
@@ -66,14 +70,23 @@ var timer = setInterval(function() {
     
     }, 1000)
 }
-runQuiz();
+
 
 function renderQuestions(){
-    if(questionEl.className = "hidden_Q"){
-        questionEl.classList.remove("hidden_Q");
+    if(quizPage.className === "hidden_Q"){
+        quizPage.classList.remove("hidden_Q");
     } else{
-        questionEl.classList.add("hidden_Q")
+        quizPage.classList.add("hidden_Q")
     }
- currentQuestion.innerHTML = questions.question1;
+ currentQuestion.textContent = questions[questionIndex].question;
+ for(i = 0; i < questions[questionIndex].answers.length; i++){
+    var li = document.createElement("li")
+    li.innerHTML = "<button>" + questions[questionIndex].answers[i] +"</button>";
+    li.dataIndex = i;
+    ansLi.append(li);
+ }
 
 }
+
+function 
+runQuiz();
