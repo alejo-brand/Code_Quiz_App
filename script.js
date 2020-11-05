@@ -46,7 +46,7 @@ var score = 0;
 // to load the quiz content and render the initial question
 function runQuiz(){
     startQuiz.addEventListener("click", function(event){
-    event.preventDefault()
+    event.preventDefault();
     runTimer();
     renderQuestions()
     });
@@ -71,7 +71,7 @@ var timer = setInterval(function() {
     }, 1000)
 }
 
-
+//this block of code allows to display and move through the array of questions and answers
 function renderQuestions(){
     if(quizPage.className === "hidden_Q"){
         quizPage.classList.remove("hidden_Q");
@@ -82,11 +82,38 @@ function renderQuestions(){
  for(i = 0; i < questions[questionIndex].answers.length; i++){
     var li = document.createElement("li")
     li.innerHTML = "<button>" + questions[questionIndex].answers[i] +"</button>";
-    li.dataIndex = i;
+    li.listIndex = i;
     ansLi.append(li);
  }
 
 }
+//this function checks if the answer clicked is correct and allows to move to the next question
 
-function 
+function moveToNextQuestion(event){
+    
+        if (event.target.matches("button")){
+            event.preventDefault();
+        };
+        /* if (questionIndex === questions.length-1){
+            // finalScore();
+        } */
+
+        var index = parseInt(event.target.parentElement.listIndex);
+        hideQuestions();
+        questionIndex++;
+        
+
+       
+    
+
+function hideQuestions(){
+    ansLi.innerHTML = "";
+}
+    
+
+moveToNextQuestion();
+renderQuestions();
+
+}
 runQuiz();
+ansLi.addEventListener("click",(moveToNextQuestion))
