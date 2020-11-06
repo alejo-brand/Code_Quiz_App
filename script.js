@@ -7,7 +7,7 @@ var timeEl = document.getElementById("clock");
 var questionEl = document.getElementById("question_rendered");
 var quizPage = document.getElementById("question_section");
 var ansLi = document.getElementById("answers_list");
-
+var grade = document.getElementById("feedback");
 
 //list of questions to loop through
 var questions = [
@@ -95,25 +95,44 @@ function moveToNextQuestion(event){
             event.preventDefault();
         };
         /* if (questionIndex === questions.length-1){
-            // finalScore();
-        } */
+            
+        } */    
 
         var index = parseInt(event.target.parentElement.listIndex);
+        
+        compareAns(ansLi);
         hideQuestions();
         questionIndex++;
-        
+        renderQuestions();
+ 
 
-       
-    
-
-function hideQuestions(){
-    ansLi.innerHTML = "";
+function hideQuestions(parent){
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);;
+    }
 }
-    
 
-moveToNextQuestion();
-renderQuestions();
+function compareAns(index){
+    if(index === questions[questionIndex].correctIndex){
+        var pEl = document.createElement("p");
+        pEl.textContent = "Correct!"
+        grade.appendChild(pEl);
+        score++;
+        
+    } else {
+        pEl.textContent = "Wrong!"
+        initialTime = initialTime - 20;
+    }
+}
+function hideQuestions(parent){
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);;
+    }
+}
+ansLi.addEventListener("click",(moveToNextQuestion))
+
+// moveToNextQuestion();
+// renderQuestions();
 
 }
 runQuiz();
-ansLi.addEventListener("click",(moveToNextQuestion))
