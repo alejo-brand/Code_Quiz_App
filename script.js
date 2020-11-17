@@ -8,6 +8,8 @@ var questionEl = document.getElementById("question_rendered");
 var quizPage = document.getElementById("question_section");
 var ansLi = document.getElementById("answers_list");
 var grade = document.getElementById("feedback");
+var final = document.getElementById("ending_page");
+
 
 //list of questions to loop through
 var questions = [
@@ -21,8 +23,8 @@ var questions = [
         correctIndex:3
     },{
         question:"In the videogame Super Mario Kart, what is the name of the very last race track?",
-        answers:["I5","luigi raceway","Rainbow road"],
-        correctIndex:3
+        answers:["I5","luigi raceway","Royal Raceway","Rainbow road"],
+        correctIndex:3  
     },{
         question:"In Street fighter II, what is the name of the final boss?",
         answers:["Akuma","Blanca","Bison","Guile"],
@@ -55,7 +57,7 @@ function runQuiz(){
 
 function runTimer(){
     
-    timeEl.textContent = initialTime;
+timeEl.textContent = initialTime;
     
     
 var timer = setInterval(function() {
@@ -75,36 +77,44 @@ var timer = setInterval(function() {
 function renderQuestions(){
     if(quizPage.className === "hidden_Q"){
         quizPage.classList.remove("hidden_Q");
-    } else{
-        quizPage.classList.add("hidden_Q")
-    }
- currentQuestion.textContent = questions[questionIndex].question;
+    };
+    currentQuestion.textContent = questions[questionIndex].question;
+
  for(i = 0; i < questions[questionIndex].answers.length; i++){
+        
     var li = document.createElement("li")
-    li.innerHTML = "<button>" + questions[questionIndex].answers[i] +"</button>";
-    li.listIndex = i;
-    ansLi.append(li);
- }
+
+        li.innerHTML = "<button>" + questions[questionIndex].answers[i] +"</button>";
+
+        li.listIndex = i;
+        ansLi.append(li);
+        console.log(ansLi);
+    }
 
 }
+ansLi.addEventListener("click",(moveToNextQuestion))
 //this function checks if the answer clicked is correct and allows to move to the next question
 
 function moveToNextQuestion(event){
-    
-        if (event.target.matches("button")){
-            event.preventDefault();
-        };
-        /* if (questionIndex === questions.length-1){
-            
-        } */    
 
-        var index = parseInt(event.target.parentElement.listIndex);
-        
-        compareAns(ansLi);
-        hideQuestions();
-        questionIndex++;
-        renderQuestions();
- 
+    event.preventDefault();
+        if (event.target.matches("button")){
+            if (questionIndex === questions.length-1){
+                
+                finalScore();
+                
+            }    
+            
+                var index = parseInt(event.target.parentElement.listIndex);
+                console.log(index);
+                
+                compareAns(index);
+                hideQuestions(ansLi);
+                questionIndex++;
+                console.log(questionIndex)
+                renderQuestions();
+            
+};
 
 function hideQuestions(parent){
     while (parent.firstChild) {
@@ -115,6 +125,7 @@ function hideQuestions(parent){
 function compareAns(index){
     if(index === questions[questionIndex].correctIndex){
         var pEl = document.createElement("p");
+        console.log(pEl)
         pEl.textContent = "Correct!"
         grade.appendChild(pEl);
         score++;
@@ -129,10 +140,13 @@ function hideQuestions(parent){
         parent.removeChild(parent.firstChild);;
     }
 }
-ansLi.addEventListener("click",(moveToNextQuestion))
 
-// moveToNextQuestion();
-// renderQuestions();
 
 }
+function finalScore(){
+    if (final.className === "hidden"){
+        final.classList.remove("hidden");
+    }
+}
+
 runQuiz();
