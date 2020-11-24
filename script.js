@@ -9,6 +9,25 @@ var quizPage = document.getElementById("question_section");
 var ansLi = document.getElementById("answers_list");
 var grade = document.getElementById("feedback");
 var final = document.getElementById("ending_page");
+var timer;
+var highscoresJSON = localStorage.getItem("highscore");
+var highscores;
+var submit = document.getElementById("submit_button")
+var initials = document.getElementById("user_initials");
+var highscoresPage = document.getElementById("highscore_page")
+var score = document.getElementById("score");
+var highscoreValue =  document.getElementById("highscores");
+
+
+if (highscoresJSON){
+    highscores = JSON.parse(highscoresJSON);
+    
+}else{
+    highscores=[];
+
+
+}
+
 
 
 //list of questions to loop through
@@ -40,7 +59,7 @@ console.log(questions);
 
 var initialTime = 120;
 var questionIndex = 0;
-var score = 0;
+// var score = 0;
 
 
 
@@ -57,20 +76,21 @@ function runQuiz(){
 
 function runTimer(){
     
-timeEl.textContent = initialTime;
+    timeEl.textContent = initialTime;
     
     
-var timer = setInterval(function() {
-        initialTime--
-    
-        if (initialTime <= 0) {
-            clearInterval(timer)
-            /* displayGetNamePage() */
-        } else {
-            timeEl.textContent = initialTime;
-        }
-    
-    }, 1000)
+    timer = setInterval(function() {
+            initialTime--
+        
+            if (initialTime <= 0) {
+                finalScore()
+               
+                /* displayGetNamePage() */
+            } else {
+                timeEl.textContent = initialTime;
+            }
+        
+        }, 1000)
 }
 
 //this block of code allows to display and move through the array of questions and answers
@@ -80,12 +100,12 @@ function renderQuestions(){
     };
     currentQuestion.textContent = questions[questionIndex].question;
 
- for(i = 0; i < questions[questionIndex].answers.length; i++){
+    for(i = 0; i < questions[questionIndex].answers.length; i++){
         
-    var li = document.createElement("li")
+        var li = document.createElement("li")
 
-        li.innerHTML = "<button>" + questions[questionIndex].answers[i] +"</button>";
-
+        li.innerHTML = `<button data-index="${i}"> ${ questions[questionIndex].answers[i] }</button>`;
+        
         li.listIndex = i;
         ansLi.append(li);
         console.log(ansLi);
@@ -98,24 +118,25 @@ ansLi.addEventListener("click",(moveToNextQuestion))
 function moveToNextQuestion(event){
 
     event.preventDefault();
-        if (event.target.matches("button")){
-            if (questionIndex === questions.length-1){
-                
-                finalScore();
-                
-            }    
+    if (event.target.matches("button")){
+        var index = parseInt(event.target.dataset.index);
+        console.log(index);
+        
+        compareAns(index);
+        hideQuestions(ansLi);
+        if (questionIndex === questions.length-1){
             
-                var index = parseInt(event.target.parentElement.listIndex);
-                console.log(index);
-                
-                compareAns(index);
-                hideQuestions(ansLi);
-                questionIndex++;
-                console.log(questionIndex)
-                renderQuestions();
+            finalScore();
             
-};
-
+        }else{   
+        
+            questionIndex++;
+            console.log(questionIndex)
+            renderQuestions();
+        }
+        
+    };
+}
 function hideQuestions(parent){
     while (parent.firstChild) {
         parent.removeChild(parent.firstChild);;
@@ -123,30 +144,53 @@ function hideQuestions(parent){
 }
 
 function compareAns(index){
+    var pEl = document.createElement("p");
     if(index === questions[questionIndex].correctIndex){
-        var pEl = document.createElement("p");
         console.log(pEl)
         pEl.textContent = "Correct!"
-        grade.appendChild(pEl);
-        score++;
+        // score++;
         
     } else {
         pEl.textContent = "Wrong!"
         initialTime = initialTime - 20;
     }
-}
-function hideQuestions(parent){
-    while (parent.firstChild) {
-        parent.removeChild(parent.firstChild);;
-    }
+    grade.appendChild(pEl);
 }
 
 
-}
+
+submit.addEventListener("click",function(){
+    
+    highscores.push({
+        initials:initials.value,
+        score:initialTime
+    })
+    localStorage.setItem("highscore",JSON.stringify(highscores))
+    showHighscores();
+})
+
 function finalScore(){
     if (final.className === "hidden"){
         final.classList.remove("hidden");
     }
+    clearInterval(timer)
+    score.textContent = initialTime;
 }
+function showHighscores(){
+    if (highscoresPage.className === "hidden"){
+        highscoresPage.classList.remove("hidden");
+    }
+    var final = JSON.parse(localStorage.getItem("highscore"))||[]; 
+    console.log(final);
+    for (i = 0; i < final.length; i++ ){
+        var pointsEl = document.createElement("p");
+        pointsEl.innerHTML = final[i].initials + ": " + final[i].score
+        highscoreValue.append(pointsEl);
+    }
+};
+
+initialPageBtn.addEventListener("click",function(event){
+    location.reload();
+})
 
 runQuiz();
