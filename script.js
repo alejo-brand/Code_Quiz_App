@@ -188,7 +188,11 @@ function showHighscores(){
         highscoreValue.append(pointsEl);
     }
 };
+clearScores.addEventListener("click",function(event){
+    window.localStorage.clear();
+    hideQuestions(highscoreValue);
 
+})
 initialPageBtn.addEventListener("click",function(event){
     location.reload();
 })
