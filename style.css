@@ -49,25 +49,15 @@ main{
     text-align: center;
     margin:auto;
 }
-#btn_1{
-    background-color: #0099cc;
-    color: white;
-}
-#btn_2{
-    background-color: #0099cc;
-    color: white;
-}
-
-#btn_3{
-    background-color: #0099cc;
-    color: white;
-}
-#btn_4{
-    background-color: #0099cc;
-    color: white;
-}
 
 #answers_list{
    margin-top:30px;
    padding:20px;
+}
+
+.listBtns{
+    padding: 15px;
+    margin:5px;
+    color:white;
+    background-color: #0099cc;
 }

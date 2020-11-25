@@ -1,4 +1,4 @@
-
+//declare our needed elements and store them variables
 var startQuiz = document.getElementById("start_button");
 var currentQuestion = document.getElementById("question_rendered");
 var initialPageBtn = document.getElementById("initial_page_btn");
@@ -73,7 +73,7 @@ function runQuiz(){
     });
     
 }
-
+//this function starts the timer when the user clicks start, and also calls the final score function if the time is up;
 function runTimer(){
     
     timeEl.textContent = initialTime;
@@ -103,8 +103,9 @@ function renderQuestions(){
     for(i = 0; i < questions[questionIndex].answers.length; i++){
         
         var li = document.createElement("li")
-
+        
         li.innerHTML = `<button data-index="${i}"> ${ questions[questionIndex].answers[i] }</button>`;
+        li.className = "listBtns"
         
         li.listIndex = i;
         ansLi.append(li);
@@ -137,12 +138,13 @@ function moveToNextQuestion(event){
         
     };
 }
+//this function removes the parent elements from the DOM
 function hideQuestions(parent){
     while (parent.firstChild) {
         parent.removeChild(parent.firstChild);;
     }
 }
-
+//here we check if the answer is correct 
 function compareAns(index){
     var pEl = document.createElement("p");
     if(index === questions[questionIndex].correctIndex){
@@ -158,7 +160,7 @@ function compareAns(index){
 }
 
 
-
+// in this annonymous function we listen to the click of the button submit and send the values entered by the user into a localStorage using the JSON.stringify method;
 submit.addEventListener("click",function(){
     
     highscores.push({
@@ -168,7 +170,7 @@ submit.addEventListener("click",function(){
     localStorage.setItem("highscore",JSON.stringify(highscores))
     showHighscores();
 })
-
+//displays thie final score and stops the timer from running after the user finished the quiz or ran out of time
 function finalScore(){
     if (final.className === "hidden"){
         final.classList.remove("hidden");
@@ -176,6 +178,7 @@ function finalScore(){
     clearInterval(timer)
     score.textContent = initialTime;
 }
+// displays the highscores and get the values from localStorage using the JSON. parse method to then render them into the page
 function showHighscores(){
     if (highscoresPage.className === "hidden"){
         highscoresPage.classList.remove("hidden");
@@ -186,15 +189,17 @@ function showHighscores(){
         var pointsEl = document.createElement("p");
         pointsEl.innerHTML = final[i].initials + ": " + final[i].score
         highscoreValue.append(pointsEl);
-    }
+    };
 };
+//allows the user to clear their score
 clearScores.addEventListener("click",function(event){
     window.localStorage.clear();
     hideQuestions(highscoreValue);
 
-})
+});
+//allows the user to play the game again
 initialPageBtn.addEventListener("click",function(event){
     location.reload();
-})
+});
 
 runQuiz();
